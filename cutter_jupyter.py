@@ -1,7 +1,13 @@
 import sys
 import threading
 import time
+
+from jupyter_client.ioloop import IOLoopKernelManager
 from notebook.notebookapp import *
+
+
+class KernelManager(IOLoopKernelManager):
+    pass
 
 
 class CutterNotebookApp(NotebookApp):
@@ -11,6 +17,8 @@ class CutterNotebookApp(NotebookApp):
 
     def start(self):
         """ see NotebookApp.start() """
+
+        self.kernel_manager.kernel_manager_factory = KernelManager
 
         super(NotebookApp, self).start()
 
